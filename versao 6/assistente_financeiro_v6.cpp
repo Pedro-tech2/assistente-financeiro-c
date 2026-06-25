@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <windows.h>
 
-// Constante para definir quantidade de despesas
 #define QUANTIDADE_DESPESAS 5
 
 void mostrarMenu()
@@ -147,10 +146,6 @@ void simularQuitarDivida(float salario, float dividas)
     }
 }
 
-// ============================================
-// FUNÇÃO ANÁLISE DE DESPESAS (CORRIGIDA)
-// ============================================
-
 void analisarDespesas(int analiseFeita, float dividas)
 {
     float despesas[QUANTIDADE_DESPESAS];
@@ -161,7 +156,6 @@ void analisarDespesas(int analiseFeita, float dividas)
     printf("\n===== ANÁLISE DE DESPESAS =====\n");
     printf("Cadastre %d despesas para análise:\n\n", QUANTIDADE_DESPESAS);
     
-    // Leitura das despesas com validação
     for(i = 0; i < QUANTIDADE_DESPESAS; i++)
     {
         printf("Digite a despesa %d: ", i + 1);
@@ -176,7 +170,6 @@ void analisarDespesas(int analiseFeita, float dividas)
             continue;
         }
         
-        // Validação: valor não pode ser zero ou negativo
         if (despesas[i] <= 0)
         {
             printf("Erro: Despesa deve ser maior que zero!\n");
@@ -185,8 +178,7 @@ void analisarDespesas(int analiseFeita, float dividas)
         }
         
         total += despesas[i];
-        
-        // Na primeira iteracao, inicializa maior e menor
+      
         if(i == 0)
         {
             maior = despesas[i];
@@ -194,7 +186,6 @@ void analisarDespesas(int analiseFeita, float dividas)
         }
         else
         {
-            // Atualiza maior e menor no mesmo loop
             if(despesas[i] > maior)
             {
                 maior = despesas[i];
@@ -206,7 +197,6 @@ void analisarDespesas(int analiseFeita, float dividas)
         }
     }
     
-    // Exibicao dos resultados
     printf("\n=== Despesas Cadastradas ===\n");
     for(i = 0; i < QUANTIDADE_DESPESAS; i++)
     {
@@ -221,7 +211,6 @@ void analisarDespesas(int analiseFeita, float dividas)
     media = total / QUANTIDADE_DESPESAS;
     printf("Media das despesas: R$ %.2f\n", media);
     
-    // Aviso de incoerência se já fez análise financeira
     if (analiseFeita == 1 && total > dividas)
     {
         printf("\n⚠️  Atenção: Total de despesas (R$ %.2f) é maior que a dívida declarada (R$ %.2f)\n", 
@@ -229,11 +218,6 @@ void analisarDespesas(int analiseFeita, float dividas)
         printf("    Considere revisar os valores.\n");
     }
 }
-
-// ============================================
-// FUNÇÃO PRINCIPAL (MAIN)
-// ============================================
-
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
