@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <windows.h>
 
+// ============================================
+// FUNÇÕES AUXILIARES
+// ============================================
+
 void mostrarMenu()
 {
     printf("\n===== ASSISTENTE FINANCEIRO =====\n");
@@ -10,24 +14,29 @@ void mostrarMenu()
     printf("4 - Reserva de Emergência\n");
     printf("5 - Meta Financeira\n");
     printf("6 - Economia Potencial\n");
+    printf("7 - Análise de Despesas\n");  // Nova opção
     printf("0 - Sair\n");
 }
+
 float calcularTotalGastos(float gastosFixos, float dividas)
 {
-	return gastosFixos + dividas;
+    return gastosFixos + dividas;
 }
+
 float calcularSaldo(float salario, float totalGastos)
 {
-	return salario - totalGastos;
+    return salario - totalGastos;
 }
+
 float calcularPercentual(float totalGastos, float salario)
 {
-	return (totalGastos / salario) * 100;
+    return (totalGastos / salario) * 100;
 }
+
 void mostrarDiagnostico(float saldo, float percentual)
 {
     printf("\n===== DIAGNÓSTICO E DICAS FINANCEIRAS =====\n");
-            
+    
     if (saldo < 0)
     {
         printf("Orçamento no vermelho.\n");
@@ -139,6 +148,67 @@ void simularQuitarDivida(float salario, float dividas)
     }
 }
 
+// ============================================
+// NOVA FUNÇÃO: ANÁLISE DE DESPESAS COM ARRAY
+// ============================================
+
+void analisarDespesas()
+{
+    float despesas[5];
+    float total = 0, maior = 0, menor, media;
+    int i;
+    
+    printf("\n===== ANÁLISE DE DESPESAS =====\n");
+    printf("Cadastre 5 despesas para análise:\n\n");
+    
+    // Loop único: lê, soma e calcula maior/menor
+    for(i = 0; i < 5; i++)
+    {
+        printf("Digite a despesa %d: ", i + 1);
+        scanf("%f", &despesas[i]);
+        
+        total += despesas[i];
+        
+        // Na primeira iteração, inicializa maior e menor
+        if(i == 0)
+        {
+            maior = despesas[i];
+            menor = despesas[i];
+        }
+        else
+        {
+            // Atualiza maior e menor no mesmo loop
+            if(despesas[i] > maior)
+            {
+                maior = despesas[i];
+            }
+            if(despesas[i] < menor)
+            {
+                menor = despesas[i];
+            }
+        }
+    }
+    
+    // Exibição organizada
+    printf("\n=== Despesas Cadastradas ===\n");
+    for(i = 0; i < 5; i++)
+    {
+        printf("Despesa %d: R$ %.2f\n", i + 1, despesas[i]);
+    }
+    
+    printf("\n=== Resumo ===\n");
+    printf("Total das despesas: R$ %.2f\n", total);
+    printf("Maior despesa: R$ %.2f\n", maior);
+    printf("Menor despesa: R$ %.2f\n", menor);
+    
+    media = total / 5;
+    printf("Média das despesas: R$ %.2f\n", media);
+}
+
+// ============================================
+// FUNÇÃO PRINCIPAL (MAIN)
+// ============================================
+
 int main()
 {
     SetConsoleOutputCP(CP_UTF8);
@@ -147,7 +217,6 @@ int main()
     int opcao;
     int continuar = 1;
     int analiseFeita = 0;
-    int c;
     
     float salario = 0;
     float gastosFixos = 0;
@@ -155,6 +224,9 @@ int main()
     float saldo = 0;
     float totalGastos = 0;
     float percentual = 0;
+    
+    // Variável para limpar buffer (estava faltando no código original)
+    int c;
         
     while (continuar == 1)
     {
@@ -162,10 +234,10 @@ int main()
 
         printf("\nDigite a opção: \n");
         if (scanf("%d", &opcao) != 1) 
-		{
-       		while((c = getchar()) != '\n' && c != EOF); 
-           
-        	printf("Opção inválida. Digite apenas números.\n");
+        {
+            while((c = getchar()) != '\n' && c != EOF); 
+            
+            printf("Opção inválida. Digite apenas números.\n");
             continue;
         }
 
@@ -190,8 +262,8 @@ int main()
                 scanf("%f", &dividas);
                 
                 totalGastos = calcularTotalGastos(gastosFixos, dividas);
-				saldo = calcularSaldo(salario, totalGastos);
-				percentual = calcularPercentual(totalGastos, salario);
+                saldo = calcularSaldo(salario, totalGastos);
+                percentual = calcularPercentual(totalGastos, salario);
 
                 printf("\nSalário: R$ %.2f\n", salario);
                 printf("Saldo restante: R$ %.2f\n", saldo);
@@ -229,7 +301,7 @@ int main()
                 else
                 {
                     printf("\n===== RESERVA DE EMERGÊNCIA =====\n");
-      
+       
                     printf("Reserva recomendada: R$ %.2f\n", calcularReserva(gastosFixos));
                 }
                 break;
@@ -249,7 +321,14 @@ int main()
                     calcularEconomiaPotencial(saldo);
                 }
                 break;
-                
+            
+            // ============================================
+            // NOVO CASE 7: ANÁLISE DE DESPESAS
+            // ============================================
+            case 7:
+                analisarDespesas();  // ← CHAMADA DA FUNÇÃO
+                break;
+            
             case 0:
                 continuar = 0;
                 printf("Programa encerrado.\n");
