@@ -5,6 +5,7 @@
 #include "../include/metas.h"
 #include "../include/simulacao.h"
 #include "../include/utils.h"
+#include "../include/dados.h"
 
 int main()
 {
@@ -13,14 +14,8 @@ int main()
 
     int opcao;
     int continuar = 1;
-    int analiseFeita = 0;
 
-    float salario = 0;
-    float gastosFixos = 0;
-    float dividas = 0;
-    float saldo = 0;
-    float totalGastos = 0;
-    float percentual = 0;
+    struct DadosFinanceiros dados = {0};
 
     while (continuar == 1)
     {
@@ -40,21 +35,21 @@ int main()
             printf("\n===== ANÁLISE FINANCEIRA =====\n");
 
             printf("Digite o seu salário mensal: ");
-            if (scanf("%f", &salario) != 1)
+            if (scanf("%f", &dados.salario) != 1)
             {
                 limparBuffer();
                 printf("Valor inválido.\n");
                 break;
             }
 
-            if (salario <= 0)
+            if (dados.salario <= 0)
             {
                 printf("O salário deve ser maior que zero.\n");
                 break;
             }
 
             printf("Digite os gastos fixos: ");
-            if (scanf("%f", &gastosFixos) != 1)
+            if (scanf("%f", &dados.gastosFixos) != 1)
             {
                 limparBuffer();
                 printf("Valor inválido.\n");
@@ -62,75 +57,75 @@ int main()
             }
 
             printf("Digite o valor de sua dívida: ");
-            if (scanf("%f", &dividas) != 1)
+            if (scanf("%f", &dados.dividas) != 1)
             {
                 limparBuffer();
                 printf("Valor inválido.\n");
                 break;
             }
 
-            totalGastos = calcularTotalGastos(gastosFixos, dividas);
-            saldo = calcularSaldo(salario, totalGastos);
-            percentual = calcularPercentual(totalGastos, salario);
+            dados.totalGastos = calcularTotalGastos(dados.gastosFixos, dados.dividas);
+            dados.saldo = calcularSaldo(dados.salario, dados.totalGastos);
+            dados.percentual = calcularPercentual(dados.totalGastos, dados.salario);
 
-            printf("\nSalário: R$ %.2f\n", salario);
-            printf("Saldo restante: R$ %.2f\n", saldo);
-            printf("Percentual gasto: %.1f%%\n", percentual);
-            analiseFeita = 1;
+            printf("\nSalário: R$ %.2f\n", dados.salario);
+            printf("Saldo restante: R$ %.2f\n", dados.saldo);
+            printf("Percentual gasto: %.1f%%\n", dados.percentual);
+            dados.analiseFeita = 1;
             break;
 
         case 2:
-            if (analiseFeita == 0)
+            if (dados.analiseFeita == 0)
             {
                 printf("Primeiro realize a análise financeira.\n");
             }
             else
             {
-                simularQuitarDivida(salario, dividas);
+                simularQuitarDivida(&dados);
             }
             break;
 
         case 3:
-            if (analiseFeita == 0)
+            if (dados.analiseFeita == 0)
             {
                 printf("Primeiro realize a análise financeira.\n");
             }
             else
             {
-                mostrarDiagnostico(saldo, percentual);
+                mostrarDiagnostico(dados.saldo, dados.percentual);
             }
             break;
 
         case 4:
-            if (analiseFeita == 0)
+            if (dados.analiseFeita == 0)
             {
                 printf("Primeiro realize a análise financeira.\n");
             }
             else
             {
                 printf("\n===== RESERVA DE EMERGÊNCIA =====\n");
-                printf("Reserva recomendada: R$ %.2f\n", calcularReserva(gastosFixos));
+                printf("Reserva recomendada: R$ %.2f\n", calcularReserva(dados.gastosFixos));
             }
             break;
 
         case 5:
-            criarMeta();
+            criarMeta(&dados);
             break;
 
         case 6:
-            if (analiseFeita == 0)
+            if (dados.analiseFeita == 0)
             {
                 printf("Primeiro realize a análise financeira.\n");
             }
             else
             {
                 printf("\n===== ECONOMIA POTENCIAL =====\n");
-                calcularEconomiaPotencial(saldo);
+                calcularEconomiaPotencial(dados.saldo);
             }
             break;
 
         case 7:
-            analisarDespesas(analiseFeita, dividas);
+            analisarDespesas(&dados);
             break;
 
         case 0:

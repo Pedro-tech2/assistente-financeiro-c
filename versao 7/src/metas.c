@@ -21,7 +21,7 @@ void calcularEconomiaPotencial(float saldo)
     }
 }
 
-void criarMeta()
+void criarMeta(struct DadosFinanceiros *dados)
 {
     float meta, economiaMensal, metaRestante;
     int meses = 0;

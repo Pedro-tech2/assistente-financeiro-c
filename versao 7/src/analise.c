@@ -42,7 +42,7 @@ void mostrarDiagnostico(float saldo, float percentual)
     }
 }
 
-void analisarDespesas(int analiseFeita, float dividas)
+void analisarDespesas(struct DadosFinanceiros *dados)
 {
     float despesas[QUANTIDADE_DESPESAS];
     float total = 0, maior = 0, menor, media;
@@ -105,10 +105,10 @@ void analisarDespesas(int analiseFeita, float dividas)
     media = total / QUANTIDADE_DESPESAS;
     printf("Media das despesas: R$ %.2f\n", media);
 
-    if (analiseFeita == 1 && total > dividas)
+    if (dados->analiseFeita == 1 && total > dados->dividas)
     {
         printf("\n⚠️  Atenção: Total de despesas (R$ %.2f) é maior que a dívida declarada (R$ %.2f)\n",
-               total, dividas);
+               total, dados->dividas);
         printf("    Considere revisar os valores.\n");
     }
 }
