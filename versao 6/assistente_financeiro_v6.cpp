@@ -160,20 +160,19 @@ void analisarDespesas(int analiseFeita, float dividas)
     {
         printf("Digite a despesa %d: ", i + 1);
         
-        // Validação: verifica se é um número válido
         if (scanf("%f", &despesas[i]) != 1)
         {
             printf("Erro: Digite apenas números!\n");
             // Limpar buffer do teclado
             while((c = getchar()) != '\n' && c != EOF);
-            i--;  // Repetir esta iteração
+            i--;
             continue;
         }
         
         if (despesas[i] <= 0)
         {
             printf("Erro: Despesa deve ser maior que zero!\n");
-            i--;  // Repetir esta iteração
+            i--;
             continue;
         }
         
