@@ -24,7 +24,7 @@ void simularQuitarDivida(struct DadosFinanceiros *dados)
             if (dividaRestante < 0)
             {
                 dividaRestante = 0;
-            }
+            } 
             printf("Mês %d - Dívida restante: R$ %.2f\n", meses, dividaRestante);
         }
 
