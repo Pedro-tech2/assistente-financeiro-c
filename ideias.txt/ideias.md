@@ -1,9 +1,14 @@
-* \[v] menu principal;
-* \[v] simulador de dividas;
-* \[v] reserva de emeregencia;
-* \[] criar versão 5 para aprender funções que retornam valores;
-* \[ ] calculadora de investimentos;
-* \[ ] histórico de gastos;
-* \[ ] exportar relatórios;
-* \[] arrays, cadastro de despesas;
+* Lógica de programação
+* Entrada e saída de dados
+* Variáveis
+* Operadores matemáticos
+* Estruturas condicionais
+* Estruturas de repetição
+* Funções
+* Arrays (vetores)
+* Modularização
+* Structs
+* Manipulação de arquivos
+* Organização de projetos
+* Controle de versão com Git e GitHub
 
