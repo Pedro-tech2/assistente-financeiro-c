@@ -1,2 +1,8 @@
-400.00 200.00 50.00 250.00 150.00 62.50 1
+Salario: 1000.00
+Gastos Fixos: 400.00
+Dívidas: 200.00
+Total de Gastos: 600.00
+Saldo: 400.00
+Percentual: 60.00
+Análise Feita: 1
 ---
