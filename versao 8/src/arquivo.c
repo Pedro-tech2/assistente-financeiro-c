@@ -16,7 +16,13 @@ void salvarAnalise(struct DadosFinanceiros *dados)
         return;
     }
 
-    fprintf(f, "%.2f %.2f %.2f %.2f %.2f %.2f %d\n", dados->salario, dados->gastosFixos, dados->dividas, dados->totalGastos, dados->saldo, dados->percentual, dados->analiseFeita);
+    fprintf(f, "Salario: %.2f\n", dados->salario);
+    fprintf(f, "Gastos Fixos: %.2f\n", dados->gastosFixos);
+    fprintf(f, "Dívidas: %.2f\n", dados->dividas);
+    fprintf(f, "Total de Gastos: %.2f\n", dados->totalGastos);
+    fprintf(f, "Saldo: %.2f\n", dados->saldo);
+    fprintf(f, "Percentual: %.2f\n", dados->percentual);
+    fprintf(f, "Análise Feita: %d\n", dados->analiseFeita);
     fprintf(f, "---\n");
 
     fclose(f);
@@ -28,46 +34,52 @@ int carregarAnalise(struct DadosFinanceiros *dados)
     FILE *f = fopen("historico.txt", "r");
     if (f == NULL)
     {
-        return 0; // não existe histórico
+        return 0;
     }
 
     char line[256];
     struct DadosFinanceiros temp = {0};
     int loaded = 0;
 
-    // Lê linha a linha; qualquer linha que não comece com '-' deve conter os valores
     while (fgets(line, sizeof(line), f) != NULL)
     {
-        // remover espaços iniciais
         char *p = line;
         while (*p == ' ' || *p == '\t') p++;
-        if (p[0] == '-' )
+
+        if (p[0] == '-')
         {
-            continue; // separador
+            // fim de um registro — marca como carregado
+            if (temp.analiseFeita == 1)
+            {
+                loaded = 1;
+            }
+            continue;
         }
 
-        // tenta parsear 7 campos
-        float salario, gastosFixos, dividas, totalGastos, saldo, percentual;
-        int analiseFeita;
-        int n = sscanf(p, "%f %f %f %f %f %f %d", &salario, &gastosFixos, &dividas, &totalGastos, &saldo, &percentual, &analiseFeita);
-        if (n == 7)
-        {
-            temp.salario = salario;
-            temp.gastosFixos = gastosFixos;
-            temp.dividas = dividas;
-            temp.totalGastos = totalGastos;
-            temp.saldo = saldo;
-            temp.percentual = percentual;
-            temp.analiseFeita = analiseFeita;
-            loaded = 1;
-        }
+        float valor;
+        int intValor;
+
+        if (sscanf(p, "Salario: %f", &valor) == 1)
+            temp.salario = valor;
+        else if (sscanf(p, "Gastos Fixos: %f", &valor) == 1)
+            temp.gastosFixos = valor;
+        else if (sscanf(p, "Dívidas: %f", &valor) == 1)
+            temp.dividas = valor;
+        else if (sscanf(p, "Total de Gastos: %f", &valor) == 1)
+            temp.totalGastos = valor;
+        else if (sscanf(p, "Saldo: %f", &valor) == 1)
+            temp.saldo = valor;
+        else if (sscanf(p, "Percentual: %f", &valor) == 1)
+            temp.percentual = valor;
+        else if (sscanf(p, "Análise Feita: %d", &intValor) == 1)
+            temp.analiseFeita = intValor;
     }
 
     fclose(f);
 
     if (loaded)
     {
-        *dados = temp; // copia os valores lidos
+        *dados = temp;
         return 1;
     }
     return 0;
