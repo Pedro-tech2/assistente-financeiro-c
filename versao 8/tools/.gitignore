@@ -1,0 +1,17 @@
+# Executáveis compilados
+*.exe
+*.out
+*.o
+
+# Pasta de saída
+output/
+
+# Arquivo de histórico financeiro (dados pessoais)
+historico.txt
+
+# Configurações locais do VS Code
+.vscode/
+
+# Arquivos temporários do Windows
+Thumbs.db
+desktop.ini
