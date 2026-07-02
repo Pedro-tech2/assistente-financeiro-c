@@ -146,7 +146,10 @@ Os próximos objetivos são:
 - organizar melhor a documentação do projeto;
 - aprofundar o uso de arquivos e estruturas de dados;
 - revisar conceitos de forma prática com novas funcionalidades;
-- transformar o projeto em um exemplo sólido para o meu portfólio.
+- transformar o projeto em um exemplo sólido para o meu portfólio;
+- explorar Python como próxima linguagem;
+- desenvolver uma versão do assistente como API web;
+- estudar integração com banco de dados e serviços de nuvem.
 
 ---
 
