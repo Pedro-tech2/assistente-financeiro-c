@@ -72,6 +72,7 @@ Construir um assistente financeiro simples, mas funcional, que evolui progressiv
 - Ambiente de desenvolvimento: VS Code
 - Controle de versão: Git / GitHub
 - Estrutura: módulos separados em arquivos .c e .h
+- .gitignore configurado para ignorar binários e dados pessoais
 
 ## Como executar a versão 8
 
@@ -85,8 +86,6 @@ Também é possível compilar manualmente com o GCC, incluindo os arquivos da pa
 
 ## Próximos passos
 
-- Interface gráfica
-- Banco de dados ou armazenamento mais robusto
-- Validações mais completas
-- Exportação de relatórios
-- Testes automatizados
+- versão em Python com API web
+- integração com banco de dados
+- evolução contínua conforme novos conceitos forem aprendidos
